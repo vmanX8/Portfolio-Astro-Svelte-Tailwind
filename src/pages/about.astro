@@ -1,0 +1,18 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+const seo = {
+    aboutTitle: "About",
+    aboutDescription: "Learn more about this portfolio.",
+};
+---
+
+<BaseLayout title={seo.aboutTitle} description={seo.aboutDescription}>
+    <section
+        class="pt-28 md:pt-32 flex items-center justify-center min-h-[60vh] px-4"
+    >
+        <div class="text-center space-y-3">
+            <h1 class="text-3xl md:text-4xl font-bold">About</h1>
+            <p class="text-slate-300">Content coming.</p>
+        </div>
+    </section>
+</BaseLayout>

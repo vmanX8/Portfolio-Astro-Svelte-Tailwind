@@ -1,0 +1,23 @@
+---
+import Footer from "../components/Footer.svelte";
+import "../styles/global.css";
+
+const { title = "Portfolio", description = "" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>{title}</title>
+        {description && <meta name="description" content={description} />}
+        <slot name="head" />
+    </head>
+    <body class="bg-slate-950 text-slate-50 min-h-screen flex flex-col">
+        <main class="flex-1">
+            <slot />
+        </main>
+        <Footer client:load />
+    </body>
+</html>

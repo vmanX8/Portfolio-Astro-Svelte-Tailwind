@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+/* Base tweaks */
+html {
+	scroll-behavior: smooth;
+}
+
+/* Better focus visibility */
+:focus-visible {
+	outline: none;
+}
