@@ -10,15 +10,14 @@
    * - Responsive design
    *
    * Key Features:
-   * - Uses Astro's View Transitions for smooth page navigation
    * - Mobile menu slides in from the right
    * - Keyboard support (ESC key closes menu)
    * - Accessible (ARIA attributes, semantic HTML)
    */
 
-  // Import the translation function from svelte-i18n
+  // Import the translation function and locale setter from svelte-i18n
   // _ is the translation function, we rename it to 't' for clarity
-  import { _ } from "svelte-i18n";
+  import { _, locale } from "svelte-i18n";
 
   // Import function to set up internationalization
   import { setupI18n } from "../lib/i18n/i18n";
@@ -26,15 +25,11 @@
   // Import the Locale type (either "en" or "gr")
   import type { Locale } from "../lib/i18n/messages";
 
-  // Import Svelte lifecycle hook to clean up when component is destroyed
-  import { onDestroy } from "svelte";
+  // Import Svelte lifecycle hooks
+  import { onDestroy, onMount } from "svelte";
 
   // Locale persistence + link helpers
   import { language, toLocalizedPath } from "../lib/languageStore";
-
-  // Import Astro's navigate function for smooth page transitions
-  // * With -npm run astro command to add astro-transitions to install this package
-  import { navigate } from "astro:transitions/client";
 
   // Initialize i18n system - detects language from URL and sets up translations
   setupI18n();
@@ -62,7 +57,7 @@
    * How it works:
    * 1. Closes mobile menu if open
    * 2. Calculates the new URL with correct language prefix
-   * 3. Uses Astro's navigate() to smoothly transition to new page
+   * 3. Navigates to the localized URL
    *
    * Examples:
    * - If on "/about" and switch to Greek → navigate to "/gr/about"
@@ -74,6 +69,10 @@
     // Close mobile menu when language is selected
     open = false;
 
+    // Persist new locale to our store and svelte-i18n immediately
+    language.set(l);
+    locale.set(l);
+
     // Get the current URL path (e.g., "/about" or "/gr/projects")
     const currentPath = window.location.pathname;
 
@@ -81,13 +80,13 @@
     // Result: "/about" becomes "/about", "/gr/about" becomes "/about"
     const pathWithoutLocale = currentPath.replace(/^\/(en|gr)/, "") || "/";
 
-    // Persist new locale and build localized path
-    language.set(l);
+    // Build localized path
     const newPath = toLocalizedPath(pathWithoutLocale, l);
 
-    // Navigate to the new URL using Astro's View Transitions
-    // This provides a smooth fade animation instead of a hard page reload
-    navigate(newPath);
+    // Navigate to the new URL
+    if (newPath !== currentPath) {
+      window.location.href = newPath;
+    }
   }
 
   /**
@@ -134,10 +133,15 @@
     onDestroy(() => window.removeEventListener("keydown", onKeyDown));
   }
 
+  // Sync svelte-i18n locale with the persisted language store on mount
+  onMount(() => {
+    const unsub = language.subscribe((value) => locale.set(value));
+    return () => unsub();
+  });
 </script>
 
 <nav
-  class="bg-[#1b0f33]/90 backdrop-blur fixed w-full z-10 top-0 shadow-md border-b border-white/10"
+  class="bg-[color:var(--surface)]/90 backdrop-blur fixed w-full z-10 top-0 shadow-md border-b border-white/10"
 >
   <div class="max-w-5xl mx-auto flex items-center justify-between px-4 py-4">
     <a href={homeHref} class="text-white text-2xl font-semibold tracking-wide"
@@ -148,22 +152,30 @@
     <div class="hidden md:flex items-center gap-8">
       <ul class="flex items-center gap-8">
         <li>
-          <a href={homeHref} class="text-white hover:text-purple-300"
+          <a
+            href={homeHref}
+            class="text-white hover:text-[color:var(--accent)] transition-colors duration-150"
             >{$t("nav.home")}</a
           >
         </li>
         <li>
-          <a href={aboutHref} class="text-white hover:text-purple-300"
+          <a
+            href={aboutHref}
+            class="text-white hover:text-[color:var(--accent)] transition-colors duration-150"
             >{$t("nav.about")}</a
           >
         </li>
         <li>
-          <a href={projectsHref} class="text-white hover:text-purple-300"
+          <a
+            href={projectsHref}
+            class="text-white hover:text-[color:var(--accent)] transition-colors duration-150"
             >{$t("nav.projects")}</a
           >
         </li>
         <li>
-          <a href={contactHref} class="text-white hover:text-purple-300"
+          <a
+            href={contactHref}
+            class="text-white hover:text-[color:var(--accent)] transition-colors duration-150"
             >{$t("nav.contact")}</a
           >
         </li>
@@ -173,14 +185,14 @@
         <span class="text-gray-300 text-sm">{$t("nav.language")}:</span>
         <button
           type="button"
-          class="px-2 py-1 text-sm rounded border border-purple-400/20 text-white bg-white/5 hover:bg-purple-800/30 shadow-[0_0_12px_rgba(168,85,247,0.35)] hover:shadow-[0_0_16px_rgba(168,85,247,0.55)] transition-shadow duration-200"
+          class="px-2 py-1 text-sm rounded border border-[color:var(--accent-weak)] text-white bg-white/5 hover:bg-[color:rgba(16,185,129,0.2)] shadow-[var(--accent-glow)] hover:shadow-[var(--accent-glow-hover)] transition-shadow duration-200"
           on:click={() => setLang("en")}
         >
           EN
         </button>
         <button
           type="button"
-          class="px-2 py-1 text-sm rounded border border-purple-400/20 text-white bg-white/5 hover:bg-purple-800/30 shadow-[0_0_12px_rgba(168,85,247,0.35)] hover:shadow-[0_0_16px_rgba(168,85,247,0.55)] transition-shadow duration-200"
+          class="px-2 py-1 text-sm rounded border border-[color:var(--accent-weak)] text-white bg-white/5 hover:bg-[color:rgba(16,185,129,0.2)] shadow-[var(--accent-glow)] hover:shadow-[var(--accent-glow-hover)] transition-shadow duration-200"
           on:click={() => setLang("gr")}
         >
           GR
@@ -229,7 +241,7 @@
     <!-- Slide panel -->
     <div
       class="fixed right-0 top-0 h-full w-[85%] max-w-sm md:hidden z-50
-             bg-slate-950/95 backdrop-blur-md text-white border-l border-white/10 shadow-2xl"
+             bg-[color:var(--surface)]/95 backdrop-blur-md text-white border-l border-white/10 shadow-2xl"
     >
       <div
         class="flex items-center justify-between px-4 py-4 border-b border-white/10"
@@ -257,7 +269,7 @@
         </button>
       </div>
 
-      <div class="px-4 py-4 bg-[#020618]">
+      <div class="px-4 py-4 bg-[color:var(--background)]">
         <ul class="flex flex-col gap-2">
           <li>
             <a
@@ -302,14 +314,14 @@
           <div class="flex gap-2">
             <button
               type="button"
-              class="flex-1 px-3 py-2 text-sm rounded border border-purple-500/20 text-white bg-white/5 hover:bg-purple-800/30 shadow-[0_0_12px_rgba(168,85,247,0.35)] hover:shadow-[0_0_16px_rgba(168,85,247,0.55)] transition-shadow duration-200"
+              class="flex-1 px-3 py-2 text-sm rounded border border-[color:var(--accent-weak)] text-white bg-white/5 hover:bg-[color:rgba(16,185,129,0.2)] shadow-[var(--accent-glow)] hover:shadow-[var(--accent-glow-hover)] transition-shadow duration-200"
               on:click={() => setLang("en")}
             >
               EN
             </button>
             <button
               type="button"
-              class="flex-1 px-3 py-2 text-sm rounded border border-purple-500/20 text-white bg-white/5 hover:bg-purple-800/30 shadow-[0_0_12px_rgba(168,85,247,0.35)] hover:shadow-[0_0_16px_rgba(168,85,247,0.55)] transition-shadow duration-200"
+              class="flex-1 px-3 py-2 text-sm rounded border border-[color:var(--accent-weak)] text-white bg-white/5 hover:bg-[color:rgba(16,185,129,0.2)] shadow-[var(--accent-glow)] hover:shadow-[var(--accent-glow-hover)] transition-shadow duration-200"
               on:click={() => setLang("gr")}
             >
               GR

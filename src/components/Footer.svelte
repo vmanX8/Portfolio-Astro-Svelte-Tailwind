@@ -15,7 +15,7 @@
   $: contactHref = toLocalizedPath("/contact", currentLang);
 </script>
 
-<footer class="border-t border-white/10 bg-[#130a27]">
+<footer class="border-t border-white/10 bg-[color:var(--surface)]">
   <div
     class="max-w-5xl mx-auto px-4 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-300"
   >
@@ -25,16 +25,24 @@
     </p>
 
     <div class="flex gap-4">
-      <a href={homeHref} class="hover:text-sky-400 transition"
+      <a
+        href={homeHref}
+        class="hover:text-[color:var(--accent)] transition-colors"
         >{$t("footer.home")}</a
       >
-      <a href={aboutHref} class="hover:text-sky-400 transition"
+      <a
+        href={aboutHref}
+        class="hover:text-[color:var(--accent)] transition-colors"
         >{$t("footer.about")}</a
       >
-      <a href={projectsHref} class="hover:text-sky-400 transition"
+      <a
+        href={projectsHref}
+        class="hover:text-[color:var(--accent)] transition-colors"
         >{$t("footer.projects")}</a
       >
-      <a href={contactHref} class="hover:text-sky-400 transition"
+      <a
+        href={contactHref}
+        class="hover:text-[color:var(--accent)] transition-colors"
         >{$t("footer.contact")}</a
       >
     </div>

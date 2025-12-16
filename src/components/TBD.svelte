@@ -22,7 +22,10 @@
     <p class="text-slate-300">
       {$t("pages.notReady")}
     </p>
-    <a href={homeHref} class="inline-block mt-2 text-sky-300 hover:underline">
+    <a
+      href={homeHref}
+      class="inline-block mt-2 text-[color:var(--accent)] hover:text-[color:var(--accent)]/80 transition-colors"
+    >
       {$t("pages.backHome")}
     </a>
   </div>
