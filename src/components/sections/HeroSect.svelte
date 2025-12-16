@@ -9,9 +9,16 @@
   import { _ } from "svelte-i18n";
   import { setupI18n } from "../../lib/i18n/i18n";
   import InView from "../ui/InView.svelte";
+  import Typewriter from "../ui/Typewriter.svelte";
+  import RotatingRing from "../ui/RotatingRing.svelte";
+  import { fade } from "svelte/transition";
 
   setupI18n();
   const t = _;
+  let nameStarted = false;
+  let roleStarted = false;
+  let taglineStarted = false;
+  let showCTAs = false;
 </script>
 
 <!-- =========================================================================
@@ -23,9 +30,9 @@
     <InView>
       <div class="grid items-center gap-10 md:grid-cols-2">
         <!-- -------------------------------------------------------------------
-          Left column: text + CTAs
+          Left column: text + CTAs (typed)
         -------------------------------------------------------------------- -->
-        <div class="space-y-6">
+        <div class="space-y-6 lg:min-h-[600px]">
           <p
             class="text-sm uppercase tracking-[0.35em] text-[color:var(--accent)]"
           >
@@ -36,97 +43,90 @@
             id="hero-title"
             class="text-3xl font-bold leading-tight sm:text-4xl md:text-5xl"
           >
-            {$t("hero.titleHi")}
-            <span class="text-[color:var(--accent)]"> {$t("hero.name")}</span>.
+            <!-- base title typed -->
+            <Typewriter
+              text={$t("hero.titleHi")}
+              speed={35}
+              startDelay={5}
+              on:done={() => (nameStarted = true)}
+            />
             <br />
-            <span class="text-slate-300">{$t("hero.role")}</span>
+
+            <!-- name typed in accent color -->
+            {#if nameStarted}
+              <span class="text-[color:var(--accent)]">
+                <Typewriter
+                  text={$t("hero.name")}
+                  speed={35}
+                  startDelay={10}
+                  on:done={() => (roleStarted = true)}
+                />
+              </span>
+              <br />
+            {/if}
+
+            <!-- role typed after name -->
+            {#if roleStarted}
+              <span class="text-slate-300">
+                <Typewriter
+                  text={$t("hero.role")}
+                  speed={34}
+                  startDelay={80}
+                  on:done={() => (taglineStarted = true)}
+                />
+              </span>
+            {/if}
           </h1>
 
+          <!-- tagline typed, then CTAs appear -->
           <p class="max-w-xl text-slate-300">
-            {$t("hero.tagline")}
+            {#if taglineStarted}
+              <Typewriter
+                text={$t("hero.tagline")}
+                speed={28}
+                startDelay={60}
+                on:done={() => (showCTAs = true)}
+              />
+            {/if}
           </p>
 
-          <!-- CTA buttons -->
-          <div class="flex flex-wrap gap-3 pt-2">
-            <a
-              href="#projects"
-              class="rounded-full border border-[color:var(--accent-weak)] px-5 py-2.5 text-sm font-medium text-white bg-white/5 hover:bg-[color:var(--accent-weak)] focus:outline-none focus:ring-2 focus:ring-[color:var(--accent)]/60 shadow-[var(--accent-glow)] hover:shadow-[var(--accent-glow-hover)] transition-shadow duration-200"
-              aria-label={$t("hero.ctaProjects")}
-            >
-              {$t("hero.ctaProjects")}
-            </a>
+          <!-- CTA buttons (reveal after typing completes) -->
+          {#if showCTAs}
+            <div class="flex flex-wrap gap-3 pt-2" transition:fade>
+              <a
+                href="#projects"
+                class="rounded-full border border-[color:var(--accent-weak)] px-5 py-2.5 text-sm font-medium text-white bg-white/5 hover:bg-[color:var(--accent-weak)] focus:outline-none focus:ring-2 focus:ring-[color:var(--accent)]/60 shadow-[var(--accent-glow)] hover:shadow-[var(--accent-glow-hover)] transition-shadow duration-200"
+                aria-label={$t("hero.ctaProjects")}
+              >
+                {$t("hero.ctaProjects")}
+              </a>
 
-            <a
-              href="#contact"
-              class="rounded-full border border-white/10 px-5 py-2.5 text-sm font-medium text-white bg-transparent hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-[color:var(--accent)]/60 transition"
-              aria-label={$t("hero.ctaContact")}
-            >
-              {$t("hero.ctaContact")}
-            </a>
-          </div>
+              <a
+                href="#contact"
+                class="rounded-full border border-white/10 px-5 py-2.5 text-sm font-medium text-white bg-transparent hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-[color:var(--accent)]/60 transition"
+                aria-label={$t("hero.ctaContact")}
+              >
+                {$t("hero.ctaContact")}
+              </a>
+            </div>
+          {/if}
         </div>
 
         <!-- -------------------------------------------------------------------
           Right column: visual / avatar placeholder
         -------------------------------------------------------------------- -->
         <div class="flex justify-center md:justify-end">
-          <div class="relative" aria-hidden="true">
-            <!-- soft glow -->
-            <div
-              class="absolute -inset-8 rounded-full blur-3xl bg-[color:var(--accent)]/15"
-            ></div>
-
-            <!-- outer ring -->
-            <div
-              class="relative h-56 w-56 sm:h-64 sm:w-64 rounded-full p-[2px]
-        bg-gradient-to-tr from-[color:var(--accent)]/60 via-[color:var(--accent-weak)] to-transparent"
-            >
-              <!-- inner container -->
-              <div
-                class="relative h-full w-full rounded-full bg-[color:var(--surface)] border border-white/10 overflow-hidden"
-              >
-                <!-- subtle pattern -->
-                <div
-                  class="absolute inset-0 opacity-30
-            bg-[radial-gradient(circle_at_20%_20%,color-mix(in_oklab,var(--accent),transparent_60%),transparent_45%),radial-gradient(circle_at_80%_70%,color-mix(in_oklab,var(--accent),transparent_70%),transparent_55%)]"
-                ></div>
-
-                <!-- inner ring -->
-                <div
-                  class="absolute inset-3 rounded-full border border-white/10"
-                ></div>
-
-                <!-- initials badge -->
-                <div class="absolute inset-0 grid place-items-center">
-                  <div
-                    class="grid place-items-center h-28 w-28 sm:h-32 sm:w-32 rounded-full
-              bg-[color:var(--background)]/60 border border-white/10 shadow-xl"
-                  >
-                    <span
-                      aria-hidden="true"
-                      class="text-3xl sm:text-4xl font-bold tracking-tight text-slate-100"
-                    >
-                      VM
-                    </span>
-                    <span
-                      aria-hidden="true"
-                      class="text-[10px] uppercase tracking-[0.35em] text-slate-300 -mt-1"
-                    >
-                      Frontend
-                    </span>
-                  </div>
-                </div>
-
-                <!-- small highlight dot -->
-                <div
-                  class="absolute top-10 right-12 h-2.5 w-2.5 rounded-full bg-[color:var(--accent)]/80
-                 shadow-[var(--accent-glow-hover)]"
-                ></div>
-              </div>
-            </div>
-          </div>
+          <RotatingRing
+            initials="VM"
+            subtitle={$t("Frontend Engineer")}
+            sizeClass="h-56 w-56 sm:h-64 sm:w-64"
+          />
         </div>
       </div>
     </InView>
   </div>
 </section>
+
+<style>
+  /* Rotating visuals moved to `src/components/ui/RotatingRing.svelte` */
+</style>
