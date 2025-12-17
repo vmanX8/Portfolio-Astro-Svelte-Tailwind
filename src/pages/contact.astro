@@ -9,7 +9,11 @@ const lang = (Astro.currentLocale as Locale) || "en";
 const seo = tSeo(lang);
 ---
 
-<BaseLayout title={seo.contactTitle} description={seo.contactDescription} lang={lang}>
+<BaseLayout
+    title={seo.contactTitle}
+    description={seo.contactDescription}
+    lang={lang}
+>
     <NavBar client:load />
     <TBD client:load pageKey="contact" />
 </BaseLayout>

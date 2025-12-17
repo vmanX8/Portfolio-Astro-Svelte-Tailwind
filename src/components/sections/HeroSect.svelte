@@ -32,7 +32,7 @@
         <!-- -------------------------------------------------------------------
           Left column: text + CTAs (typed)
         -------------------------------------------------------------------- -->
-        <div class="space-y-6 lg:min-h-[600px]">
+        <div class="space-y-6 lg:min-h-[400px]">
           <p
             class="text-sm uppercase tracking-[0.35em] text-[color:var(--accent)]"
           >

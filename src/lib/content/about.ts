@@ -58,7 +58,7 @@ export const aboutContent = {
 
 			"My background in photo and video editing shaped my eye for detail, aesthetics, and storytelling. Front-end development became the natural point where design meets code, allowing me to work on websites from concept to implementation with a focus on clarity and usability.",
 
-			"Front-end is my main focus and passion, while full-stack knowledge helps me better understand how applications work as a whole. My goal is to build a strong portfolio of clean, intentional websites that feel intuitive and enjoyable to use, within collaborative and creative teams.",
+			"Front-end is my main focus and passion. Full-stack knowledge interests me as a future complement, but my priority right now is to grow as a front-end developer. My goal is to build a strong portfolio of clean, intentional websites that feel intuitive and enjoyable to use, within collaborative and creative teams.",
 
 			"I’m especially drawn to creative studio environments like Web Eleven, where website design and implementation go hand in hand. I thrive in collaborative teams and aim to grow through meaningful, real-world projects."
 		]
@@ -73,7 +73,7 @@ export const aboutContent = {
 
 			"Η ενασχόλησή μου με το photo και video editing διαμόρφωσε τον τρόπο που προσεγγίζω την αισθητική, τη λεπτομέρεια και το storytelling. Το front-end αποτέλεσε το φυσικό σημείο όπου το design συναντά τον κώδικα, από το πρώτο mockup έως την τελική υλοποίηση.",
 
-			"Το front-end είναι το βασικό μου αντικείμενο και πάθος, ενώ η γνώση του full stack με βοηθά να κατανοώ καλύτερα τη συνολική λειτουργία μιας εφαρμογής. Στόχος μου είναι να δημιουργώ καθαρές, ουσιαστικές ιστοσελίδες με έμφαση στην εμπειρία του χρήστη, μέσα σε δημιουργικά και συνεργατικά περιβάλλοντα.",
+			"Το front-end είναι το βασικό μου αντικείμενο και πάθος. Το full-stack με ενδιαφέρει ως μελλοντική συμπληρωματική γνώση, όμως αυτή τη στιγμή προτεραιότητά μου είναι να εξελιχθώ όσο το δυνατόν περισσότερο ως front-end developer. Στόχος μου είναι να δημιουργώ καθαρές, ουσιαστικές ιστοσελίδες με έμφαση στην εμπειρία του χρήστη, μέσα σε δημιουργικά και συνεργατικά περιβάλλοντα.",
 
 			"Με ελκύουν περιβάλλοντα δημιουργικού χαρακτήρα όπως η Web Eleven, όπου το website design και η υλοποίηση συνδυάζονται ουσιαστικά. Απολαμβάνω τη συνεργασία και τη συνεχή εξέλιξη μέσα από πραγματικά projects."
 		]

@@ -3,6 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import NavBar from "../../components/NavBar.svelte";
 import HeroSect from "../../components/sections/HeroSect.svelte";
 import AboutSect from "../../components/sections/AboutSect.svelte";
+import ContactSect from "../../components/sections/ContactSect.svelte";
 import { tSeo } from "../../lib/i18n/server";
 
 const lang = "gr";
@@ -13,4 +14,5 @@ const seo = tSeo(lang);
 	<NavBar client:load />
 	<HeroSect client:load />
 	<AboutSect client:load />
+	<ContactSect client:load />
 </BaseLayout>
