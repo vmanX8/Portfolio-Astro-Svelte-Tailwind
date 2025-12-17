@@ -26,14 +26,14 @@ export const messages = {
       closeMenu: "Close menu",
     },
     pages: {
-      notReady: "This page is not ready yet.",
+      notReady: "Sorry, this page is not ready yet.",
       backHome: "Back to Home",
       about: { title: "About" },
       projects: { title: "Projects" },
       contact: { title: "Contact" },
     },
     footer: {
-      name: "My Portfolio",
+      name: "VM Portfolio",
       rights: "All rights reserved.",
       home: "Home",
       about: "About",
@@ -41,15 +41,30 @@ export const messages = {
       contact: "Contact",
     },
 
-		hero: {
-			badge: "Portfolio",
-			titleHi: "Hi, I'm",
-			name: "Vangelis",
-			role: "Frontend Engineer",
-			tagline:
-				"“Design is not decoration, it’s the way your website speaks before a single word is read.”",
-			ctaProjects: "See my work", 
-			ctaContact: "Let’s build something",
+	hero: {
+		badge: "Portfolio",
+		titleHi: "Hi, I'm",
+		name: "Vangelis",
+		role: "Frontend Engineer",
+		tagline:
+			"“Design is not decoration, it’s the way your website speaks before a single word is read.”",
+		ctaProjects: "See my work", 
+		ctaContact: "Let’s build something",
+	},
+
+	contactSection: {
+		title: "Contact",
+		subtitle:
+			"Send me a message.",
+		nameLabel: "Name",
+		emailLabel: "Email",
+		subjectLabel: "Subject",
+		messageLabel: "Message",
+		namePlaceholder: "Your name",
+		emailPlaceholder: "you@example.com",
+		subjectPlaceholder: "What is this about?",
+		messagePlaceholder: "Write your message…",
+		submit: "Send message",
 		},
   },
   gr: {
@@ -78,7 +93,7 @@ export const messages = {
 		},
 
 		pages: {
-			notReady: "Η σελίδα δεν είναι έτοιμη ακόμα.",
+			notReady: "Λυπούμαστε, η σελίδα δεν είναι διαθέσιμη ακόμα.",
 			backHome: "Πίσω στην Αρχική",
 			about: { title: "Σχετικά" },
 			projects: { title: "Projects" },
@@ -86,7 +101,7 @@ export const messages = {
 		},
 
 		footer: {
-			name: "Το Portfolio μου",
+			name: "VM Portfolio",
 			rights: "Με επιφύλαξη παντός δικαιώματος.",
 			home: "Αρχική",
 			about: "Σχετικά",
@@ -94,15 +109,31 @@ export const messages = {
 			contact: "Επικοινωνία",
 		},
 
-    hero: {
+		hero: {
 			badge: "Portfolio",
 			titleHi: "Γειά σας, με λένε",
 			name: "Βαγγέλη",
-			role: "Και είμαι Frontend Engineer",
+			role: "Frontend Engineer",
 			tagline:
-				"«Το design χωρίς στρατηγική είναι απλά διακόσμηση, με στρατηγική είναι ο τρόπος που το site μας μιλά πριν διαβαστεί έστω μία λέξη.»",
-			ctaProjects: "Projects",
+				"«Το design χωρίς στρατηγική είναι απλά διακόσμηση. Mε στρατηγική είναι ο τρόπος που το site μας μιλά πριν διαβαστεί έστω μία λέξη.»",
+			ctaProjects: "Η δουλειά μου",
 			ctaContact: "Επικοινωνήστε μαζί μου",
 		},
+
+		contactSection: {
+			title: "Επικοινωνία",
+			subtitle:
+				"Στείλτε μου μήνυμα.",
+			nameLabel: "Όνομα",
+			emailLabel: "Email",
+			subjectLabel: "Θέμα",
+			messageLabel: "Μήνυμα",
+			namePlaceholder: "Το όνομά σας",
+			emailPlaceholder: "you@example.com",
+			subjectPlaceholder: "Με τι σχετίζεται;",
+			messagePlaceholder: "Γράψτε το μήνυμά σας…",
+			submit: "Αποστολή",
+		},
+		
   },
 } as const;
